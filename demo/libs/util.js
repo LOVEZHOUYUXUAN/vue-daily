@@ -3,7 +3,8 @@ import axios from 'axios';
 
 const Util = {
 	imgPath: 'http://127.0.0.1:8011/img/',
-	apiPath: 'http://127.0.0.1:8010'
+	apiPath: 'http://127.0.0.1:8010',
+	sectionPath:'http://127.0.0.1:8012'
 };
 
 Util.getTodayTime = function () {
@@ -29,13 +30,19 @@ Util.prevDay = function (timestamp = (new Date()).getTime()) {
 
 //Ajax 通用配置
 
-Util.ajax = axios.create ({
+Util.ajax = axios.create({
 	baseURL:Util.apiPath
+});
+Util.ajaxSection = axios.create({
+	baseURL:Util.sectionPath
 });
 
 //添加响应拦截器
 
 Util.ajax.interceptors.response.use(res => {
+	return res.data;
+});
+Util.ajaxSection.interceptors.response.use(res => {
 	return res.data;
 });
 
